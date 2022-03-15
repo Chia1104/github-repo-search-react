@@ -1,7 +1,9 @@
-import React, {useState, useRef, useCallback, useContext, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { setReposList } from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
+import NotFound from "../components/NotFound";
+import LoadingRepoList from "../components/LoadingRepoList";
 
 const HomePage = () => {
     const [query, setQuery] = useState('')
@@ -26,19 +28,29 @@ const HomePage = () => {
     }, [query, pageNumber]);
 
     const allRepos = useSelector((state) => state.repos.allRepos);
+    const { loading } = useSelector((state) => state.repos.requestRepos);
 
     return (
         <>
-            <div className="w-96">
-                <input type="text" value={query} onChange={handleSearch} className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white w-3/4" placeholder="user's name"/>
-                <button
-                    className="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r w-1/4">Search
-                </button>
+            <div className="flex justify-center my-5">
+                <div className="w-[550px] flex self-center">
+                    <input type="text" value={query} onChange={handleSearch} className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white w-3/4" placeholder="user's name"/>
+                    <button
+                        className="px-8 rounded-r-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r w-1/4">Search
+                    </button>
+                </div>
             </div>
-            <div className="flex justify-center mt-4">
-                <RepoList />
-            </div>
-            <div>Loading...</div>
+            {loading === true ? (
+                <LoadingRepoList />
+            ) : (
+                allRepos.message === "Not Found" ? (
+                    <NotFound />
+                ) : (
+                    allRepos.map((repo) => (
+                        <RepoList repo={repo} key={repo.id}/>
+                    ))
+                )
+            )}
         </>
     );
 }

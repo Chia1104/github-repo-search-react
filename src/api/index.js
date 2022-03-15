@@ -30,3 +30,18 @@ export const getRepoByName = async (user, repoName) => {
         console.error(error);
     }
 }
+
+export const getUser = async (user) => {
+    try {
+        const response = await fetch(`${URL}/users/${user}`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        });
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+    }
+}
