@@ -11,7 +11,7 @@ const RepoList = ({ repo }) => {
                     {repo.description === null ? "There is no description" : repo.description}
                 </p>
                 <div className="flex">
-                    <p className="text-secondary text-sm w-[50%]">
+                    <p className="text-secondary text-sm w-[50%]" >
                         {repo.language}
                     </p>
                     <p className="text-secondary text-sm w-[50%] text-right">
