@@ -11,11 +11,9 @@ const NotFound = () => {
         }
     };
     return (
-        <>
-            <Lottie options={defaultOptions}
+        <Lottie options={defaultOptions}
                 height={500}
                 width={700}/>
-        </>
     );
 }
 

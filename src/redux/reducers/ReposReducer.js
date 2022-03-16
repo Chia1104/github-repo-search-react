@@ -33,7 +33,7 @@ export const reposReducer = (
         case SET_MORE_REPOS_LIST:
             return {
                 ...state,
-                allRepos: action.payload,
+                moreRepos: action.payload,
             };
         case BEGIN_REPOS_REQUEST:
             return {

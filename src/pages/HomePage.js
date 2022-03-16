@@ -8,7 +8,7 @@ import LoadingRepoList from "../components/LoadingRepoList";
 const HomePage = () => {
     const [query, setQuery] = useState('')
     const [pageNumber, setPageNumber] = useState(1)
-    const [moreRepos, setMoreRepos] = useState([]);
+    const [allRepos, setAllRepos] = useState([])
     const dispatch = useDispatch();
 
     const handleSearch = (e) => {
@@ -38,28 +38,41 @@ const HomePage = () => {
         }
     }, [query]);
 
-    const allRepos = useSelector((state) => state.repos.allRepos);
-    const { loading } = useSelector((state) => state.repos.requestRepos);
-    const { loadingMore } = useSelector((state) => state.repos.requestMoreRepos.loading);
-
     const handleScroll = (e) => {
         const scrollHeight = e.target.documentElement.scrollHeight;
         const currentHeight = Math.ceil(
             e.target.documentElement.scrollTop + window.innerHeight
         );
-        if (currentHeight + 1 >= scrollHeight) {
+        if (currentHeight + 1 >= scrollHeight && loading !== true) {
             setPageNumber(pageNumber + 1);
         }
     };
-
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
     useEffect(() => {
         console.log(pageNumber);
-        getMoreRepoList();
+        if (query !== '' && pageNumber !== 1) {
+            getMoreRepoList();
+        }
     }, [pageNumber]);
+
+    let prevRepos = useSelector((state) => state.repos.allRepos);
+    useEffect(() => {
+        setAllRepos(prevRepos);
+    }, [prevRepos]);
+
+    let moreRepos = useSelector((state) => state.repos.moreRepos);
+    const { loading } = useSelector((state) => state.repos.requestRepos);
+    const loadingMore = useSelector((state) => state.repos.requestMoreRepos.loading);
+
+    useEffect(() => {
+        if (moreRepos.length !== 0) {
+            setAllRepos(allRepos => [...allRepos, ...moreRepos]);
+            console.log(allRepos);
+        }
+    }, [moreRepos]);
 
     return (
         <>
