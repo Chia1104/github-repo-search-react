@@ -1,4 +1,5 @@
 import { useISOtoDate } from "../hooks/useISOtoDate"
+import StarIcon from '@mui/icons-material/Star';
 
 const RepoList = ({ repo }) => {
     return (
@@ -11,9 +12,12 @@ const RepoList = ({ repo }) => {
                     {repo.description === null ? "There is no description" : repo.description}
                 </p>
                 <div className="flex">
-                    <p className="text-secondary text-sm w-[50%]" >
-                        {repo.language}
-                    </p>
+                    <div className="flex w-[50%]">
+                        <p className="text-secondary text-sm w-[50%]" >
+                            {repo.language}
+                        </p>
+                        <StarIcon className="text-secondary text-sm w-[50%]"/>
+                    </div>
                     <p className="text-secondary text-sm w-[50%] text-right">
                         {useISOtoDate(repo.created_at)}
                     </p>
