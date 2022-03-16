@@ -27,3 +27,19 @@ export const setReposList = (user, page) => async (dispatch) => {
         dispatch({ type: FAIL_REPOS_REQUEST, payload: error });
     }
 };
+
+export const setMoreReposList = (user, page) => async (dispatch) => {
+    let moreRepos = [];
+    dispatch({ type: BEGIN_MORE_REPOS_REQUEST });
+    try {
+        moreRepos = await getAllRepos(user, page);
+        dispatch({
+            type: SET_MORE_REPOS_LIST,
+            payload: moreRepos,
+        });
+        dispatch({ type: SUCCESS_MORE_REPOS_REQUEST });
+    } catch (error) {
+        console.log(error);
+        dispatch({ type: FAIL_MORE_REPOS_REQUEST, payload: error });
+    }
+};

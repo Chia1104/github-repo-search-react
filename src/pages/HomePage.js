@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { setReposList } from "../redux/actions/ReposAction"
+import { setReposList, setMoreReposList } from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
 import NotFound from "../components/NotFound";
 import LoadingRepoList from "../components/LoadingRepoList";
@@ -8,6 +8,7 @@ import LoadingRepoList from "../components/LoadingRepoList";
 const HomePage = () => {
     const [query, setQuery] = useState('')
     const [pageNumber, setPageNumber] = useState(1)
+    const [moreRepos, setMoreRepos] = useState([]);
     const dispatch = useDispatch();
 
     const handleSearch = (e) => {
@@ -23,12 +24,42 @@ const HomePage = () => {
         }
     };
 
+    const getMoreRepoList = async () => {
+        try {
+            dispatch(setMoreReposList(query, pageNumber));
+        } catch (e) {
+            console.log("error", e);
+        }
+    };
+
     useEffect(() => {
-        getRepoList();
-    }, [query, pageNumber]);
+        if (query !== '') {
+            getRepoList()
+        }
+    }, [query]);
 
     const allRepos = useSelector((state) => state.repos.allRepos);
     const { loading } = useSelector((state) => state.repos.requestRepos);
+    const { loadingMore } = useSelector((state) => state.repos.requestMoreRepos.loading);
+
+    const handleScroll = (e) => {
+        const scrollHeight = e.target.documentElement.scrollHeight;
+        const currentHeight = Math.ceil(
+            e.target.documentElement.scrollTop + window.innerHeight
+        );
+        if (currentHeight + 1 >= scrollHeight) {
+            setPageNumber(pageNumber + 1);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        console.log(pageNumber);
+        getMoreRepoList();
+    }, [pageNumber]);
 
     return (
         <>
@@ -51,6 +82,7 @@ const HomePage = () => {
                     ))
                 )
             )}
+            {loadingMore === true && (<LoadingRepoList />)}
         </>
     );
 }

@@ -1,5 +1,6 @@
 import { useISOtoDate } from "../hooks/useISOtoDate"
 import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const RepoList = ({ repo }) => {
     return (
@@ -11,12 +12,24 @@ const RepoList = ({ repo }) => {
                 <p className="text-secondary my-1 text-base truncate">
                     {repo.description === null ? "There is no description" : repo.description}
                 </p>
-                <div className="flex">
-                    <div className="flex w-[50%]">
+                <div className="flex items-center">
+                    <div className="flex w-[50%] items-center">
                         <p className="text-secondary text-sm w-[50%]" >
                             {repo.language}
                         </p>
-                        <StarIcon className="text-secondary text-sm w-[50%]"/>
+                        <div className="flex w-[50%] items-center">
+                            {
+                                repo.stargazers_count !== 0 ? (
+                                    <StarIcon className="text-yellow-400 text-sm"/>
+                                ) : (
+                                    <StarBorderIcon className="text-yellow-400 text-sm"/>
+                                )
+                            }
+                            <p className="text-secondary text-sm" >
+                                {repo.stargazers_count}
+                            </p>
+                        </div>
+
                     </div>
                     <p className="text-secondary text-sm w-[50%] text-right">
                         {useISOtoDate(repo.created_at)}
