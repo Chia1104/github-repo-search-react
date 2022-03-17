@@ -9,6 +9,7 @@ const HomePage = () => {
     const [query, setQuery] = useState('')
     const [pageNumber, setPageNumber] = useState(1)
     const [allRepos, setAllRepos] = useState([])
+    const [hasMore, setHasMore] = useState(true)
     const dispatch = useDispatch();
     const prevRepos = useSelector((state) => state.repos.allRepos);
     const moreRepos = useSelector((state) => state.repos.moreRepos);
@@ -18,6 +19,7 @@ const HomePage = () => {
     const handleSearch = (e) => {
         setQuery(e.target.value)
         setPageNumber(1)
+        setHasMore(true)
     };
 
     const handleScroll = (e) => {
@@ -28,12 +30,7 @@ const HomePage = () => {
             scrollTop + innerHeight
         );
 
-        // console.log("ScrollHeight: " + scrollHeight);
-        // console.log("ScrollTop: " + scrollTop);
-        // console.log("InnerHeight: " + innerHeight);
-        // console.log("CurrentHeight: " + currentHeight);
-
-        if (currentHeight + 1 >= scrollHeight && loading !== true) {
+        if (currentHeight + 1 >= scrollHeight && loading !== true && hasMore === true) {
             setPageNumber(pageNumber => pageNumber + 1);
         }
     };
@@ -65,19 +62,24 @@ const HomePage = () => {
     }, []);
 
     useEffect(() => {
-        // console.log(pageNumber);
-        if (query !== '' && pageNumber !== 1) {
+        if (query !== '' && pageNumber !== 1 && hasMore === true) {
             getMoreRepoList();
         }
     }, [pageNumber]);
 
     useEffect(() => {
         setAllRepos(prevRepos);
+        if (prevRepos < 10) {
+            setHasMore(false)
+        }
     }, [prevRepos]);
 
     useEffect(() => {
         if (moreRepos.length !== 0) {
             setAllRepos(allRepos => [...allRepos, ...moreRepos]);
+        }
+        if (moreRepos.length === 0) {
+            setHasMore(false)
         }
     }, [moreRepos]);
 
