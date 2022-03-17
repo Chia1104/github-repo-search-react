@@ -32,9 +32,9 @@ export const getRepoByName = async (user, repoName) => {
     }
 }
 
-export const getUser = async (user) => {
+export const getUser = async (userName) => {
     try {
-        const response = await fetch(`${URL}/users/${user}`, {
+        const response = await fetch(`${URL}/users/${userName}`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
