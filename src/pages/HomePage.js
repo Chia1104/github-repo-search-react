@@ -10,10 +10,32 @@ const HomePage = () => {
     const [pageNumber, setPageNumber] = useState(1)
     const [allRepos, setAllRepos] = useState([])
     const dispatch = useDispatch();
+    const prevRepos = useSelector((state) => state.repos.allRepos);
+    const moreRepos = useSelector((state) => state.repos.moreRepos);
+    const { loading } = useSelector((state) => state.repos.requestRepos);
+    const loadingMore = useSelector((state) => state.repos.requestMoreRepos.loading);
 
     const handleSearch = (e) => {
         setQuery(e.target.value)
         setPageNumber(1)
+    };
+
+    const handleScroll = (e) => {
+        const scrollHeight = e.target.documentElement.scrollHeight;
+        const scrollTop = e.target.documentElement.scrollTop;
+        const innerHeight = window.innerHeight;
+        const currentHeight = Math.ceil(
+            scrollTop + innerHeight
+        );
+
+        // console.log("ScrollHeight: " + scrollHeight);
+        // console.log("ScrollTop: " + scrollTop);
+        // console.log("InnerHeight: " + innerHeight);
+        // console.log("CurrentHeight: " + currentHeight);
+
+        if (currentHeight + 1 >= scrollHeight && loading !== true) {
+            setPageNumber(pageNumber => pageNumber + 1);
+        }
     };
 
     const getRepoList = async () => {
@@ -38,39 +60,24 @@ const HomePage = () => {
         }
     }, [query]);
 
-    const handleScroll = (e) => {
-        const scrollHeight = e.target.documentElement.scrollHeight;
-        const currentHeight = Math.ceil(
-            e.target.documentElement.scrollTop + window.innerHeight
-        );
-        if (currentHeight + 1 >= scrollHeight && loading !== true) {
-            setPageNumber(pageNumber + 1);
-        }
-    };
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
     }, []);
 
     useEffect(() => {
-        console.log(pageNumber);
+        // console.log(pageNumber);
         if (query !== '' && pageNumber !== 1) {
             getMoreRepoList();
         }
     }, [pageNumber]);
 
-    let prevRepos = useSelector((state) => state.repos.allRepos);
     useEffect(() => {
         setAllRepos(prevRepos);
     }, [prevRepos]);
 
-    let moreRepos = useSelector((state) => state.repos.moreRepos);
-    const { loading } = useSelector((state) => state.repos.requestRepos);
-    const loadingMore = useSelector((state) => state.repos.requestMoreRepos.loading);
-
     useEffect(() => {
         if (moreRepos.length !== 0) {
             setAllRepos(allRepos => [...allRepos, ...moreRepos]);
-            console.log(allRepos);
         }
     }, [moreRepos]);
 
