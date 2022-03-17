@@ -1,20 +1,16 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Learn More
+# Learn More
 
 The live demo was deployed on three different cloud servers.
 
-#### Google Cloud Platform(GCP)
+## Google Cloud Platform(GCP)
 You can go here, [deployment](https://github-repo-search-react-ewrxmngera-de.a.run.app/).
 
 It was deployed by using Docker
 
-#### Vercel
+## Vercel
 You can go here, [deployment](https://github-repo-search-react.vercel.app/).
 
-#### Heroku
+## Heroku
 You can go here, [deployment](https://github-repo-search-react.herokuapp.com/).
 
 ## Available Scripts

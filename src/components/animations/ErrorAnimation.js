@@ -1,7 +1,7 @@
 import Lottie from 'react-lottie';
-import animationData from '../lottie-json/91351-404-error-page-animation-with-sky.json';
+import animationData from '../../lottie-json/98642-error-404.json';
 
-const NotFound = () => {
+const ErrorAnimation = () => {
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -12,9 +12,9 @@ const NotFound = () => {
     };
     return (
         <Lottie options={defaultOptions}
-                height={500}
+                height={700}
                 width={700}/>
     );
 }
 
-export default NotFound;
+export default ErrorAnimation;
