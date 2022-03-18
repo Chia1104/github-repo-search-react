@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { setReposList, setMoreReposList } from "../redux/actions/ReposAction"
-import { setUser } from "../redux/actions/UserAction"
 import RepoList from "../components/RepoList";
-import NotFoundAnimation from "../components/animations/NotFoundAnimation";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
 import Header from "../components/Header";
 import NotFoundPage from "./exceptions/NotFoundPage";
+import SpaceAnimation from "../components/animations/SpaceAnimation";
 
 const RepoListPage = () => {
     const [pageNumber, setPageNumber] = useState(1)
@@ -18,6 +18,7 @@ const RepoListPage = () => {
     const { loading } = useSelector((state) => state.repos.requestRepos);
     const loadingMore = useSelector((state) => state.repos.requestMoreRepos.loading);
     const userData = useSelector((state) => state.user.userData);
+    const { userName } = useParams();
 
     const handleSearch = (e) => {
         setPageNumber(1)
@@ -72,9 +73,6 @@ const RepoListPage = () => {
 
     useEffect(() => {
         setAllRepos(prevRepos);
-        if (prevRepos < 10) {
-            setHasMore(false)
-        }
     }, [prevRepos]);
 
     useEffect(() => {
@@ -95,8 +93,8 @@ const RepoListPage = () => {
                         {loading === true ? (
                             <LoadingRepoListAnimation />
                         ) : (
-                            allRepos.message === "Not Found" ? (
-                                <NotFoundAnimation />
+                            allRepos.length === 0 ? (
+                                <SpaceAnimation />
                             ) : (
                                 allRepos.map((repo) => (
                                     <RepoList repo={repo} key={repo.id}/>
