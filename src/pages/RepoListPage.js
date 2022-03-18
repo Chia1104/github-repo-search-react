@@ -79,7 +79,7 @@ const RepoListPage = () => {
         if (moreRepos.length !== 0) {
             setAllRepos(allRepos => [...allRepos, ...moreRepos]);
         }
-        if (moreRepos.length === 0) {
+        if (moreRepos.length === 0 || allRepos.length < 10) {
             setHasMore(false)
         }
     }, [moreRepos]);

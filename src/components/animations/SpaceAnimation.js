@@ -12,8 +12,8 @@ const SpaceAnimation = () => {
     };
     return (
         <Lottie options={defaultOptions}
-                height={700}
-                width={700}/>
+                height={500}
+                width={500}/>
     );
 }
 

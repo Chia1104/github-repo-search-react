@@ -33,8 +33,9 @@ const HomePage = () => {
                         Search
                     </button>
                 </div>
+                <SpaceAnimation />
                 {warning === true && (
-                    <Alert severity="warning" className="transition-opacity">Search input can't be empty</Alert>
+                    <Alert severity="warning" className="bottom-10 fixed transition-opacity w-[550px] mx-auto">Search input can't be empty</Alert>
                 )}
             </div>
         </div>
