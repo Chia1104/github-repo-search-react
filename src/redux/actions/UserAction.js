@@ -20,6 +20,6 @@ export const setUser = (userName) => async (dispatch) => {
         dispatch({ type: SUCCESS_USER_REQUEST });
     } catch (error) {
         console.log(error);
-        dispatch({ type: FAIL_USER_REQUEST, payload: error });
+        dispatch({ type: FAIL_USER_REQUEST, payload: "error" });
     }
 };

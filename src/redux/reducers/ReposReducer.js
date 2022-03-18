@@ -1,23 +1,17 @@
 import {
     SET_REPOS_LIST,
-    SET_MORE_REPOS_LIST,
     BEGIN_REPOS_REQUEST,
     SUCCESS_REPOS_REQUEST,
     FAIL_REPOS_REQUEST,
-    BEGIN_MORE_REPOS_REQUEST,
-    SUCCESS_MORE_REPOS_REQUEST,
-    FAIL_MORE_REPOS_REQUEST,
+    RESET_REPOS_STATE,
+    HAS_MORE_REPO,
 } from "../../utils/constants";
 
 export const reposReducer = (
     state = {
         allRepos: [],
-        moreRepos: [],
+        hasMore: true,
         requestRepos: {
-            loading: false,
-            error: null,
-        },
-        requestMoreRepos: {
             loading: false,
             error: null,
         },
@@ -28,12 +22,7 @@ export const reposReducer = (
         case SET_REPOS_LIST:
             return {
                 ...state,
-                allRepos: action.payload,
-            };
-        case SET_MORE_REPOS_LIST:
-            return {
-                ...state,
-                moreRepos: action.payload,
+                allRepos: [...state.allRepos, ...action.payload],
             };
         case BEGIN_REPOS_REQUEST:
             return {
@@ -54,23 +43,21 @@ export const reposReducer = (
                     error: action.payload,
                 },
             };
-        case BEGIN_MORE_REPOS_REQUEST:
+        case HAS_MORE_REPO:
             return {
                 ...state,
-                requestMoreRepos: { ...state.requestMoreRepos, loading: true },
+                hasMore: action.hasMore,
+                requestRepos: {
+                    ...state.requestRepos,
+                },
             };
-        case SUCCESS_MORE_REPOS_REQUEST:
+        case RESET_REPOS_STATE:
             return {
-                ...state,
-                requestMoreRepos: { ...state.requestMoreRepos, loading: false },
-            };
-        case FAIL_MORE_REPOS_REQUEST:
-            return {
-                ...state,
-                requestMoreRepos: {
-                    ...state.requestMoreRepos,
+                allRepos: [],
+                hasMore: true,
+                requestRepos: {
                     loading: false,
-                    error: action.payload,
+                    error: null,
                 },
             };
         default:

@@ -1,12 +1,8 @@
 import {
     SET_REPOS_LIST,
-    SET_MORE_REPOS_LIST,
     BEGIN_REPOS_REQUEST,
     SUCCESS_REPOS_REQUEST,
-    FAIL_REPOS_REQUEST,
-    BEGIN_MORE_REPOS_REQUEST,
-    SUCCESS_MORE_REPOS_REQUEST,
-    FAIL_MORE_REPOS_REQUEST,
+    FAIL_REPOS_REQUEST, HAS_MORE_REPO,
 } from "../../utils/constants";
 import {
     getAllRepos,
@@ -21,25 +17,20 @@ export const setReposList = (user, page) => async (dispatch) => {
             type: SET_REPOS_LIST,
             payload: allRepos,
         });
+        allRepos.length < 10 ? (
+            dispatch({
+                type: HAS_MORE_REPO,
+                hasMore: false,
+            })
+        ) : (
+            dispatch({
+                type: HAS_MORE_REPO,
+                hasMore: true,
+            })
+        )
         dispatch({ type: SUCCESS_REPOS_REQUEST });
     } catch (error) {
         console.log(error);
-        dispatch({ type: FAIL_REPOS_REQUEST, payload: error });
-    }
-};
-
-export const setMoreReposList = (user, page) => async (dispatch) => {
-    let moreRepos = [];
-    dispatch({ type: BEGIN_MORE_REPOS_REQUEST });
-    try {
-        moreRepos = await getAllRepos(user, page);
-        dispatch({
-            type: SET_MORE_REPOS_LIST,
-            payload: moreRepos,
-        });
-        dispatch({ type: SUCCESS_MORE_REPOS_REQUEST });
-    } catch (error) {
-        console.log(error);
-        dispatch({ type: FAIL_MORE_REPOS_REQUEST, payload: error });
+        dispatch({ type: FAIL_REPOS_REQUEST, payload: "error" });
     }
 };
