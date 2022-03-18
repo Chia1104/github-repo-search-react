@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, withRouter} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RepoListPage from "./pages/RepoListPage";
 import NotFoundPage from "./pages/exceptions/NotFoundPage";
@@ -9,7 +9,7 @@ import Header from "./components/Header";
 function App() {
   return (
       <BrowserRouter>
-          <Header />
+          {/*<Header />*/}
           <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/users/:userName/repos" element={<RepoListPage />} />
