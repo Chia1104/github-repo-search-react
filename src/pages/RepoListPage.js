@@ -9,6 +9,7 @@ import NotFoundPage from "./exceptions/NotFoundPage";
 import SpaceAnimation from "../components/animations/SpaceAnimation";
 import {RESET_REPOS_STATE} from "../utils/constants";
 import ErrorPage from "./exceptions/ErrorPage";
+import {setUser} from "../redux/actions/UserAction";
 
 const RepoListPage = () => {
     const [pageNumber, setPageNumber] = useState(1)
@@ -17,19 +18,7 @@ const RepoListPage = () => {
     const hasMore = useSelector((state) => state.repos.hasMore);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
     const userData = useSelector((state) => state.user.userData);
-    const userError = useSelector((state) => state.user.requestUser.error);
-
-    const initialState = () => {
-        setPageNumber(1)
-    };
-
-    const getRepoList = async () => {
-        try {
-            dispatch(setReposList(userData.login, pageNumber));
-        } catch (e) {
-            console.log("error", e);
-        }
-    };
+    const { userName } = useParams;
 
     const handleScroll = (e) => {
         const scrollHeight = e.target.documentElement.scrollHeight;
@@ -46,25 +35,23 @@ const RepoListPage = () => {
 
     useEffect(() => {
         dispatch({ type: RESET_REPOS_STATE });
-        initialState();
-        if (userData !== [] || userData.message !== "Not Found") {
-            getRepoList()
-        }
-    }, [userData]);
-
-    useEffect(() => {
-        if (pageNumber !== 1 && hasMore === true) {
-            getRepoList();
-        }
-    }, [pageNumber]);
-
-    useEffect(() => {
+        setPageNumber(1);
+        dispatch(setReposList(userData.login, pageNumber));
         window.addEventListener("scroll", handleScroll);
     }, []);
 
+    // useEffect(() => {
+    //
+    // }, [userName]);
+
+    //Get More Repo List
+    useEffect(() => {
+        if (pageNumber !== 1 && hasMore === true) dispatch(setReposList(userData.login, pageNumber));
+    }, [pageNumber]);
+
     return (
         <>
-            {error === "error" || userError === "error" ? <ErrorPage /> : (
+            {error === "error" ? <ErrorPage /> : (
                 userData.message === "Not Found" ? <NotFoundPage /> : (
                     <main>
                         <Header />
@@ -76,7 +63,7 @@ const RepoListPage = () => {
                                     <RepoList repo={repo} key={repo.id}/>
                                 ))
                             )}
-                            {loading === true && (<LoadingRepoListAnimation />)}
+                            {loading && (<LoadingRepoListAnimation />)}
                         </div>
                     </main>
                 )
