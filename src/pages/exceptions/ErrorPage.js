@@ -7,7 +7,7 @@ const ErrorPage = () => {
             <div className="flex-col items-center">
                 <ErrorAnimation />
                 <div className="flex justify-center text-xl mt-5">
-                    <Link to="/"> You can go back here </Link>
+                    <Link to="/home"> You can go back here </Link>
                 </div>
             </div>
         </div>

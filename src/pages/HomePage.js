@@ -1,5 +1,5 @@
 import SpaceAnimation from "../components/animations/SpaceAnimation";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import {setUser} from "../redux/actions/UserAction";
@@ -11,13 +11,14 @@ const HomePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userData = useSelector((state) => state.user.userData);
+    const params = useParams();
 
     const handleSearch = (e) => {
         setQuery(e.target.value)
     };
 
     useEffect(() => {
-        if (userData.length !== 0) navigate(`/users/${query}/repos`)
+        if (userData.length !== 0 && query !== '' && params.userName !== '') navigate(`/users/${query}/repos`)
     }, [userData]);
 
     return (
@@ -38,7 +39,7 @@ const HomePage = () => {
                     </button>
                 </div>
                 <SpaceAnimation />
-                {warning === true && (
+                {warning && (
                     <Alert severity="warning" className="bottom-10 fixed transition-opacity w-[550px] mx-auto">Search input can't be empty</Alert>
                 )}
             </div>

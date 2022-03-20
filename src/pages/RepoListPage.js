@@ -18,7 +18,7 @@ const RepoListPage = () => {
     const hasMore = useSelector((state) => state.repos.hasMore);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
     const userData = useSelector((state) => state.user.userData);
-    const { userName } = useParams;
+    const params = useParams();
 
     const handleScroll = (e) => {
         const scrollHeight = e.target.documentElement.scrollHeight;
@@ -36,17 +36,17 @@ const RepoListPage = () => {
     useEffect(() => {
         dispatch({ type: RESET_REPOS_STATE });
         setPageNumber(1);
-        dispatch(setReposList(userData.login, pageNumber));
         window.addEventListener("scroll", handleScroll);
     }, []);
 
-    // useEffect(() => {
-    //
-    // }, [userName]);
+    useEffect(() => {
+        dispatch(setUser(params.userName));
+        dispatch(setReposList(params.userName, pageNumber));
+    }, [params.userName]);
 
     //Get More Repo List
     useEffect(() => {
-        if (pageNumber !== 1 && hasMore === true) dispatch(setReposList(userData.login, pageNumber));
+        if (pageNumber !== 1 && hasMore === true) dispatch(setReposList(params.userName, pageNumber));
     }, [pageNumber]);
 
     return (
