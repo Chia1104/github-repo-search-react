@@ -17,17 +17,7 @@ export const setReposList = (user, page) => async (dispatch) => {
             type: SET_REPOS_LIST,
             payload: allRepos,
         });
-        allRepos.length < 10 ? (
-            dispatch({
-                type: HAS_MORE_REPO,
-                hasMore: false,
-            })
-        ) : (
-            dispatch({
-                type: HAS_MORE_REPO,
-                hasMore: true,
-            })
-        )
+        allRepos.length < 10 && dispatch({ type: HAS_MORE_REPO, hasMore: false })
         dispatch({ type: SUCCESS_REPOS_REQUEST });
     } catch (error) {
         console.log(error);

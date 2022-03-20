@@ -10,7 +10,7 @@ import RepoDetailPage from "./pages/RepoDetailPage";
 function App() {
   return (
       <BrowserRouter>
-          {/*<Header />*/}
+          <Header />
           <Routes>
               <Route path="/" element={<Navigate to='/home' />} />
               <Route path="/home" element={<HomePage />} />

@@ -14,14 +14,18 @@ const Header = () => {
                     <Skeleton variant="text" className="w-20"/>
                 </div>
             ) : (
-                userData ? (
+                userData.login ? (
                     <div className="flex container items-center">
                         <Avatar alt={userData.login} src={userData.avatar_url} className="mr-2"/>
                         <h1>
                             {userData.login}
                         </h1>
                     </div>
-                ) : <h1>GitHub Repo Search</h1>
+                ) : (
+                    <div className="flex container items-center">
+                        <h1>GitHub Repo Search</h1>
+                    </div>
+                )
             )}
         </div>
     );

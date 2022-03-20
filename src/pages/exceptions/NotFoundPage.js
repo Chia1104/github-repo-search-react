@@ -7,7 +7,7 @@ const NotFoundPage = () => {
             <div className="flex-col items-center">
                 <NotFoundAnimation />
                 <div className="flex justify-center text-xl mt-5">
-                    <Link to="/home"> You can go back here </Link>
+                    <p>There is nothing here<br /><Link to="/home"> You can go back here </Link></p>
                 </div>
             </div>
         </div>
