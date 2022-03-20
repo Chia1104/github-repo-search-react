@@ -12,6 +12,6 @@
 
 @layer components {
   .repo-box {
-    @apply bg-white border-2 rounded-xl md:w-[30rem] py-4 px-5 border-white shadow-lg sm:w-[25rem]
+    @apply bg-white border-2 rounded-xl md:w-[500px] py-4 px-5 border-white shadow-lg sm:w-[300px] w-screen
   }
 }
