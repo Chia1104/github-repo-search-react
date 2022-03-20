@@ -6,7 +6,7 @@ const RepoList = ({ repo }) => {
     return (
         <div className="flex justify-center mb-4">
             <div className="flex-col repo-box">
-                <h1 className="text-primary my-1 text-xl">
+                <h1 className="text-primary my-1 md:text-xl sm:text-lg">
                     {repo.name}
                 </h1>
                 <p className="text-secondary my-1 text-base truncate">
