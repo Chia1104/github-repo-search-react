@@ -3,6 +3,7 @@ import {
     BEGIN_USER_REQUEST,
     SUCCESS_USER_REQUEST,
     FAIL_USER_REQUEST,
+    RESET_USER_STATE,
 } from "../../utils/constants";
 
 export const userReducer = (
@@ -40,6 +41,14 @@ export const userReducer = (
                     error: action.payload,
                 },
             };
+        case RESET_USER_STATE:
+            return {
+                userData: [],
+                requestUser: {
+                    loading: false,
+                    error: null,
+                },
+            }
         default:
             return state;
     }

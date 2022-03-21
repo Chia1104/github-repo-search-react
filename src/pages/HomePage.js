@@ -1,25 +1,24 @@
 import SpaceAnimation from "../components/animations/SpaceAnimation";
-import {useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import {useState, useEffect} from "react";
-import {setUser} from "../redux/actions/UserAction";
 import Alert from '@mui/material/Alert';
+import {RESET_REPOS_STATE, RESET_USER_STATE} from "../utils/constants";
 
 const HomePage = () => {
     const [query, setQuery] = useState('')
     const [warning, setWarning] = useState(false)
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const userData = useSelector((state) => state.user.userData);
-    const params = useParams();
 
     const handleSearch = (e) => {
         setQuery(e.target.value)
     };
 
     useEffect(() => {
-        if (userData.length !== 0 && query !== '' && params.userName !== '') navigate(`/users/${query}/repos`)
-    }, [userData]);
+        dispatch({ type: RESET_REPOS_STATE });
+        dispatch({ type: RESET_USER_STATE });
+    }, []);
 
     return (
         <div className="flex justify-center items-center w-screen h-screen">
@@ -30,7 +29,7 @@ const HomePage = () => {
                         className="px-4 rounded-r-lg bg-yellow-400 text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r w-1/4 text-sm"
                         onClick={()=> {
                             if (query !== '') {
-                                dispatch(setUser(query));
+                                navigate(`/users/${query}/repos`)
                             } else {
                                 setWarning(true);
                             }

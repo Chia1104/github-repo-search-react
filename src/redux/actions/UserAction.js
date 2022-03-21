@@ -15,9 +15,12 @@ export const setUser = (userName) => async (dispatch) => {
         userData = await getUser(userName);
         dispatch({
             type: SET_USER,
-            payload: userData,
+            payload: userData.data,
         });
-        dispatch({ type: SUCCESS_USER_REQUEST });
+
+        userData.status === 200 ? dispatch({ type: SUCCESS_USER_REQUEST })
+            : userData.status === 404 ? dispatch({ type: FAIL_USER_REQUEST, payload: "404error" })
+                : dispatch({ type: FAIL_USER_REQUEST, payload: "error" });
     } catch (error) {
         console.log(error);
         dispatch({ type: FAIL_USER_REQUEST, payload: "error" });

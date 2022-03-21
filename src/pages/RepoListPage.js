@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { setReposList } from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
-import Header from "../components/Header";
 import NotFoundPage from "./exceptions/NotFoundPage";
 import SpaceAnimation from "../components/animations/SpaceAnimation";
 import {RESET_REPOS_STATE} from "../utils/constants";
@@ -17,7 +16,7 @@ const RepoListPage = () => {
     const allRepos = useSelector((state) => state.repos.allRepos);
     const hasMore = useSelector((state) => state.repos.hasMore);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
-    const userData = useSelector((state) => state.user.userData);
+    const userError = useSelector((state) => state.user.requestUser.error);
     const params = useParams();
 
     const handleScroll = (e) => {
@@ -51,10 +50,9 @@ const RepoListPage = () => {
 
     return (
         <>
-            {error === "error" ? <ErrorPage /> : (
-                userData.message === "Not Found" ? <NotFoundPage /> : (
+            {error === "error" || userError === "error"? <ErrorPage /> : (
+                error === "404error" || userError === "404error"? <NotFoundPage /> : (
                     <main>
-                        <Header />
                         <div className="mt-20">
                             {allRepos.length === 0 && loading === false ? (
                                 <SpaceAnimation />
