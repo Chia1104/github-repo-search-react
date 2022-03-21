@@ -7,7 +7,7 @@ const Header = () => {
     const { loading } = useSelector((state) => state.user.requestUser);
 
     return (
-        <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center">
+        <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-50">
             { loading ? (
                 <div className="flex container items-center">
                     <Avatar className="mr-2"/>

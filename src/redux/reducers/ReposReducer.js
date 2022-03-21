@@ -5,13 +5,23 @@ import {
     FAIL_REPOS_REQUEST,
     RESET_REPOS_STATE,
     HAS_MORE_REPO,
+    SET_REPO_DETAILS,
+    BEGIN_REPO_DETAILS_REQUEST,
+    SUCCESS_REPO_DETAILS_REQUEST,
+    FAIL_REPO_DETAILS_REQUEST,
+    RESET_REPO_DETAILS_STATE
 } from "../../utils/constants";
 
 export const reposReducer = (
     state = {
         allRepos: [],
+        repoDetails: [],
         hasMore: true,
         requestRepos: {
+            loading: false,
+            error: null,
+        },
+        requestRepoDetails: {
             loading: false,
             error: null,
         },
@@ -56,6 +66,38 @@ export const reposReducer = (
                 allRepos: [],
                 hasMore: true,
                 requestRepos: {
+                    loading: false,
+                    error: null,
+                },
+            };
+        case SET_REPO_DETAILS:
+            return {
+                ...state,
+                repoDetails: action.payload,
+            };
+        case BEGIN_REPO_DETAILS_REQUEST:
+            return {
+                ...state,
+                requestRepoDetails: { ...state.requestRepoDetails, loading: true },
+            };
+        case SUCCESS_REPO_DETAILS_REQUEST:
+            return {
+                ...state,
+                requestRepoDetails: { ...state.requestRepoDetails, loading: false },
+            };
+        case FAIL_REPO_DETAILS_REQUEST:
+            return {
+                ...state,
+                requestRepoDetails: {
+                    ...state.requestRepoDetails,
+                    loading: false,
+                    error: action.payload,
+                },
+            };
+        case RESET_REPO_DETAILS_STATE:
+            return {
+                repoDetails: [],
+                requestRepoDetails: {
                     loading: false,
                     error: null,
                 },
