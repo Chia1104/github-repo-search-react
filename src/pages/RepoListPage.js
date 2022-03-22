@@ -11,15 +11,21 @@ import ErrorPage from "./exceptions/ErrorPage";
 import {setUser} from "../redux/actions/UserAction";
 
 const RepoListPage = () => {
+    //Local state
     const [pageNumber, setPageNumber] = useState(1)
+
+    //Redux state
     const dispatch = useDispatch();
     const allRepos = useSelector((state) => state.repos.allRepos);
     const hasMore = useSelector((state) => state.repos.hasMore);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
     const userError = useSelector((state) => state.user.requestUser.error);
     const userData = useSelector((state) => state.user.userData);
+
+    //React router URL params
     const params = useParams();
 
+    //Detect scroll to bottom, and set pageNumber ++ to local state
     const handleScroll = (e) => {
         const scrollHeight = e.target.documentElement.scrollHeight;
         const scrollTop = e.target.documentElement.scrollTop;
@@ -35,10 +41,13 @@ const RepoListPage = () => {
 
     useEffect(() => {
         dispatch({ type: RESET_REPOS_STATE });
-        setPageNumber(1);
         window.addEventListener("scroll", handleScroll);
+        return () => {
+            setPageNumber(1);
+        };
     }, []);
 
+    //First set user data, and repo data from redux state
     useEffect(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setReposList(params.userName, pageNumber));

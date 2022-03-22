@@ -3,21 +3,36 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useState, useEffect} from "react";
 import Alert from '@mui/material/Alert';
-import {RESET_REPOS_STATE, RESET_USER_STATE} from "../utils/constants";
+import {RESET_USER_STATE} from "../utils/constants";
 
 const HomePage = () => {
-    const [query, setQuery] = useState('')
-    const [warning, setWarning] = useState(false)
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const handleSearch = (e) => {
-        setQuery(e.target.value)
+    //Local state
+    const state = {
+        query: '',
+        warning: false
+    };
+    const [{ query, warning }, setState] = useState(state)
+    const clearState = () => {
+        setState({...state});
     };
 
+    //React router
+    const navigate = useNavigate();
+    //Redux
+    const dispatch = useDispatch();
+
+    //Set input value to local state
+    const handleSearch = (e) => {
+        const { value } = e.target;
+        setState({ ...state, query: value })
+    };
+
+    //Reset all state
     useEffect(() => {
-        dispatch({ type: RESET_REPOS_STATE });
         dispatch({ type: RESET_USER_STATE });
+        return () => {
+            clearState();
+        };
     }, []);
 
     return (
@@ -28,15 +43,13 @@ const HomePage = () => {
                     <button
                         className="px-4 rounded-full bg-[#2B2E4A] text-white font-bold p-4 w-[100px] text-sm z-20 shadow-inner right-0 top-0 absolute hover:bg-[#FF9000] transition ease-in-out"
                         onClick={()=> {
-                            query !== '' ? navigate(`/users/${query}/repos`) : setWarning(true);
+                            query !== '' ? navigate(`/users/${query}/repos`) : setState({ ...state, warning: true });
                         }}>
                         Search
                     </button>
                 </div>
                 <SpaceAnimation />
-                {warning && (
-                    <Alert severity="warning" className="bottom-10 fixed transition-opacity md:w-[500px] mx-auto sm:w-[340px]">Search input can't be empty</Alert>
-                )}
+                {warning && <Alert severity="warning" className="bottom-10 fixed transition-opacity md:w-[500px] mx-auto sm:w-[340px]">Search input can't be empty</Alert>}
             </div>
         </div>
     );
