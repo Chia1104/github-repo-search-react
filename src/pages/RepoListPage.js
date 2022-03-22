@@ -17,6 +17,7 @@ const RepoListPage = () => {
     const hasMore = useSelector((state) => state.repos.hasMore);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
     const userError = useSelector((state) => state.user.requestUser.error);
+    const userData = useSelector((state) => state.user.userData);
     const params = useParams();
 
     const handleScroll = (e) => {
@@ -39,7 +40,7 @@ const RepoListPage = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(setUser(params.userName));
+        userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setReposList(params.userName, pageNumber));
     }, [params.userName]);
 

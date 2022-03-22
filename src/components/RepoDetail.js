@@ -10,7 +10,7 @@ const RepoDetail = ({ details }) => {
         <div className="w-[100%] rounded-lg border-slate-500 flex-col">
             <div>
                 <h1>
-                    {details ? details.name : "Name"}
+                    {details?.name}
                 </h1>
             </div>
         </div>

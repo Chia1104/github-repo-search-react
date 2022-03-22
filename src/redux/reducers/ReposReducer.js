@@ -63,6 +63,7 @@ export const reposReducer = (
             };
         case RESET_REPOS_STATE:
             return {
+                ...state,
                 allRepos: [],
                 hasMore: true,
                 requestRepos: {
@@ -96,6 +97,7 @@ export const reposReducer = (
             };
         case RESET_REPO_DETAILS_STATE:
             return {
+                ...state,
                 repoDetails: [],
                 requestRepoDetails: {
                     loading: false,

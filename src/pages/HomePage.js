@@ -28,11 +28,7 @@ const HomePage = () => {
                     <button
                         className="px-4 rounded-full bg-[#2B2E4A] text-white font-bold p-4 w-[100px] text-sm z-20 shadow-inner right-0 top-0 absolute hover:bg-[#FF9000] transition ease-in-out"
                         onClick={()=> {
-                            if (query !== '') {
-                                navigate(`/users/${query}/repos`)
-                            } else {
-                                setWarning(true);
-                            }
+                            query !== '' ? navigate(`/users/${query}/repos`) : setWarning(true);
                         }}>
                         Search
                     </button>
