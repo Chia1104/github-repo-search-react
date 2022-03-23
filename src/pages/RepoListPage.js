@@ -40,9 +40,9 @@ const RepoListPage = () => {
     };
 
     useEffect(() => {
-        dispatch({ type: RESET_REPOS_STATE });
         window.addEventListener("scroll", handleScroll);
         return () => {
+            dispatch({ type: RESET_REPOS_STATE });
             setPageNumber(1);
         };
     }, []);

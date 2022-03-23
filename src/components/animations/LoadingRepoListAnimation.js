@@ -5,24 +5,24 @@ const LoadingRepoListAnimation = () => {
     return (
         <div className="flex flex-col items-center">
             <Box className="repo-box my-5">
-                <Skeleton />
                 <Skeleton animation="wave" />
-                <Skeleton animation={false} />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
             </Box>
             <Box className="repo-box my-5">
-                <Skeleton />
                 <Skeleton animation="wave" />
-                <Skeleton animation={false} />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
             </Box>
             <Box className="repo-box my-5">
-                <Skeleton />
                 <Skeleton animation="wave" />
-                <Skeleton animation={false} />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
             </Box>
             <Box className="repo-box my-5">
-                <Skeleton />
                 <Skeleton animation="wave" />
-                <Skeleton animation={false} />
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" />
             </Box>
         </div>
     );

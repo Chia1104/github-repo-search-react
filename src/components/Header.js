@@ -20,9 +20,9 @@ const Header = () => {
                 userData.login ? (
                     <div className="flex container w-[100%]">
                         <div className="flex items-center w-[87%]">
-                            <div className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
+                            <button className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
                                 <ArrowBackIosNewIcon className="text-white" fontSize="medium" onClick={() => navigate(-1)} />
-                            </div>
+                            </button>
                             <Avatar alt={userData.login} src={userData.avatar_url} className="mr-2"/>
                             <h1>
                                 {userData.login}

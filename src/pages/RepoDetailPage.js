@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import ErrorPage from "./exceptions/ErrorPage";
 import NotFoundPage from "./exceptions/NotFoundPage";
 import {RESET_REPO_DETAILS_STATE} from "../utils/constants";
+import LoadingRepoDetailAnimation from "../components/animations/LoadingRepoDetailAnimation";
 
 const RepoDetailPage = () => {
     const repoDetails = useSelector((state) => state.repos.repoDetails);
@@ -32,7 +33,7 @@ const RepoDetailPage = () => {
                     <main>
                         <div className="container w-screen m-auto">
                             <div className="mt-20">
-                                { loading ? <h1>LOADING</h1>
+                                { loading ? <LoadingRepoDetailAnimation />
                                     : <RepoDetail details={repoDetails} />
                                 }
                             </div>
