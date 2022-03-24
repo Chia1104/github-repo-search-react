@@ -47,7 +47,7 @@ name: Build and Deploy to Cloud Run
 on:
   push:
     branches:
-      - main
+      - test-action
 
 env:
   PROJECT_ID: YOUR_PROJECT_ID # TODO: update Google Cloud project id
