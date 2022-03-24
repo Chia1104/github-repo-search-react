@@ -8,7 +8,7 @@ import {
     BEGIN_REPO_DETAILS_REQUEST,
     SUCCESS_REPO_DETAILS_REQUEST,
     FAIL_REPO_DETAILS_REQUEST,
-    RESET_REPO_DETAILS_STATE
+    RESET_REPO_DETAILS_STATE, GO_TO_NEXT_PAGE
 } from "../../utils/constants";
 import {
     getAllRepos, getRepoByName,
@@ -34,6 +34,10 @@ export const setReposList = (user, page) => async (dispatch) => {
         console.log(error);
         dispatch({ type: FAIL_REPOS_REQUEST, payload: "error" });
     }
+};
+
+export const goToNextPage = (dispatch) => {
+    dispatch({ type: GO_TO_NEXT_PAGE, payload: 1 });
 };
 
 export const setRepoDetails = (userName, repoNmae) => async (dispatch) => {

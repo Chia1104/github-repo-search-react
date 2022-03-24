@@ -8,7 +8,7 @@ const LoadingRepoDetailAnimation = () => {
             <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl mb-5" />
             <div className="flex w-full items-center">
                 <div className="w-1/4">
-                    <div className="bg-gray-200 w-full animate-pulse h-3 rounded-2xl mb-3 mr-3" />
+                    <div className="bg-gray-200 w-1/3 animate-pulse h-3 rounded-2xl mb-3 mr-3" />
                 </div>
                 <div className="w-1/4">
                     <div className="bg-yellow-400 w-5 h-5 animate-pulse h-3 rounded-full mb-3" />

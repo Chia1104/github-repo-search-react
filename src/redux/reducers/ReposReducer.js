@@ -9,7 +9,8 @@ import {
     BEGIN_REPO_DETAILS_REQUEST,
     SUCCESS_REPO_DETAILS_REQUEST,
     FAIL_REPO_DETAILS_REQUEST,
-    RESET_REPO_DETAILS_STATE
+    RESET_REPO_DETAILS_STATE,
+    GO_TO_NEXT_PAGE
 } from "../../utils/constants";
 
 export const reposReducer = (
@@ -17,6 +18,7 @@ export const reposReducer = (
         allRepos: [],
         repoDetails: [],
         hasMore: true,
+        pageNumber: 1,
         requestRepos: {
             loading: false,
             error: null,
@@ -57,15 +59,18 @@ export const reposReducer = (
             return {
                 ...state,
                 hasMore: action.hasMore,
-                requestRepos: {
-                    ...state.requestRepos,
-                },
+            };
+        case GO_TO_NEXT_PAGE:
+            return {
+                ...state,
+                pageNumber: state.pageNumber + action.payload,
             };
         case RESET_REPOS_STATE:
             return {
                 ...state,
                 allRepos: [],
                 hasMore: true,
+                pageNumber: 1,
                 requestRepos: {
                     loading: false,
                     error: null,

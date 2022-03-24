@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useLayoutEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setReposList } from "../redux/actions/ReposAction"
+import {goToNextPage, setReposList} from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
 import NotFoundPage from "./exceptions/NotFoundPage";
@@ -11,13 +11,11 @@ import ErrorPage from "./exceptions/ErrorPage";
 import {setUser} from "../redux/actions/UserAction";
 
 const RepoListPage = () => {
-    //Local state
-    const [pageNumber, setPageNumber] = useState(1)
-
     //Redux state
     const dispatch = useDispatch();
     const allRepos = useSelector((state) => state.repos.allRepos);
     const hasMore = useSelector((state) => state.repos.hasMore);
+    const pageNumber = useSelector((state) => state.repos.pageNumber);
     const { loading, error } = useSelector((state) => state.repos.requestRepos);
     const userError = useSelector((state) => state.user.requestUser.error);
     const userData = useSelector((state) => state.user.userData);
@@ -33,9 +31,8 @@ const RepoListPage = () => {
         const currentHeight = Math.ceil(
             scrollTop + innerHeight
         );
-
         if (currentHeight + 1 >= scrollHeight && loading !== true && hasMore === true) {
-            setPageNumber(pageNumber => pageNumber + 1)
+            dispatch(goToNextPage);
         }
     };
 
@@ -43,12 +40,11 @@ const RepoListPage = () => {
         window.addEventListener("scroll", handleScroll);
         return () => {
             dispatch({ type: RESET_REPOS_STATE });
-            setPageNumber(1);
         };
     }, []);
 
     //First set user data, and repo data from redux state
-    useEffect(() => {
+    useLayoutEffect(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setReposList(params.userName, pageNumber));
     }, [params.userName]);

@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {useState, useEffect} from "react";
 import Alert from '@mui/material/Alert';
 import {RESET_USER_STATE} from "../utils/constants";
+import {Fade} from "@mui/material";
 
 const HomePage = () => {
     //Local state
@@ -49,7 +50,7 @@ const HomePage = () => {
                     </button>
                 </div>
                 <SpaceAnimation />
-                {warning && <Alert severity="warning" className="bottom-10 fixed transition-opacity md:w-[500px] mx-auto sm:w-[340px]">Search input can't be empty</Alert>}
+                <Fade in={warning}><Alert severity="warning" className="bottom-10 fixed transition-opacity md:w-[500px] mx-auto sm:w-[340px]">Search input can't be empty</Alert></Fade>
             </div>
         </div>
     );
