@@ -11,7 +11,7 @@ It was deployed by using Docker
 You can go here, [deployment](https://github-repo-search-react.vercel.app/).
 
 ## Heroku
-You can go here, [deployment](https://github-repo-search-react.herokuapp.com/).
+You can go here, [deployment](https://salty-earth-39003.herokuapp.com/).
 
 ## Available Scripts
 
