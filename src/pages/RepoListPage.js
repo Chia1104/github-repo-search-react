@@ -36,6 +36,18 @@ const RepoListPage = () => {
         }
     };
 
+    // const getRepoList = useCallback(() => {
+    //     userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && 
+    //     dispatch(setUser(params.userName)) && 
+    //     dispatch({ type: RESET_REPOS_STATE }) && 
+    //     dispatch(setReposList(params.userName, pageNumber));
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [params.userName])
+    
+    // useEffect(() => {
+    //     getRepoList()
+    // }, [getRepoList])
+
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
         return () => {
