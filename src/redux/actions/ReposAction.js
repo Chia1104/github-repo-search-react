@@ -8,7 +8,7 @@ import {
     BEGIN_REPO_DETAILS_REQUEST,
     SUCCESS_REPO_DETAILS_REQUEST,
     FAIL_REPO_DETAILS_REQUEST,
-    RESET_REPO_DETAILS_STATE, GO_TO_NEXT_PAGE
+    GO_TO_NEXT_PAGE,
 } from "../../utils/constants";
 import {
     getAllRepos, getRepoByName,

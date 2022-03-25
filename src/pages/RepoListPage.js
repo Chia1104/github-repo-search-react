@@ -1,4 +1,4 @@
-import {useState, useEffect, useLayoutEffect} from 'react'
+import {useEffect, useLayoutEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {goToNextPage, setReposList} from "../redux/actions/ReposAction"
@@ -41,17 +41,20 @@ const RepoListPage = () => {
         return () => {
             dispatch({ type: RESET_REPOS_STATE });
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //First set user data, and repo data from redux state
     useLayoutEffect(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setReposList(params.userName, pageNumber));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.userName]);
 
     //Get More Repo List
     useEffect(() => {
         if (pageNumber !== 1 && hasMore === true) dispatch(setReposList(params.userName, pageNumber));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber]);
 
     return (

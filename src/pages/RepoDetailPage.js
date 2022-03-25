@@ -19,11 +19,13 @@ const RepoDetailPage = () => {
 
     useEffect(() => {
         dispatch({type: RESET_REPO_DETAILS_STATE});
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setRepoDetails(params.userName, params.repoName));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.userName, params.repoName]);
 
     return(

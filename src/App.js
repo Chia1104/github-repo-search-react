@@ -2,7 +2,6 @@ import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import RepoListPage from "./pages/RepoListPage";
 import NotFoundPage from "./pages/exceptions/NotFoundPage";
-import ErrorPage from "./pages/exceptions/ErrorPage";
 import Header from "./components/Header";
 import RepoDetailPage from "./pages/RepoDetailPage";
 

@@ -1,8 +1,6 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import ForkRightIcon from '@mui/icons-material/ForkRight';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import {useISOtoDate} from "../hooks/useISOtoDate";
 
@@ -21,7 +19,7 @@ const RepoDetail = ({ details }) => {
                     <h1 className="text-lg border rounded-full px-2 mr-3">
                         {details.visibility}
                     </h1>
-                    <a href={details.svn_url} target="_blank">
+                    <a href={details.svn_url} target="_blank" rel="noopener noreferrer">
                         <GitHubIcon className="hover:text-[#FF9000]"/>
                     </a>
                 </div>
