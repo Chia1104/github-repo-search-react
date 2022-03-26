@@ -23,48 +23,25 @@ const RepoListPage = () => {
     //React router URL params
     const params = useParams();
 
-    //Detect scroll to bottom, and dispatch pageNumber
-
-    // old function
-    // const handleScroll = (e) => {
-    //     const scrollHeight = e.target.documentElement.scrollHeight;
-    //     const scrollTop = e.target.documentElement.scrollTop;
-    //     const innerHeight = window.innerHeight;
-    //     const currentHeight = Math.ceil(
-    //         scrollTop + innerHeight
-    //     );
-    //     if (currentHeight + 1 >= scrollHeight && loading !== true && hasMore === true) {
-    //         dispatch(goToNextPage);
-    //     }
-    // };
-
-    // new function
+    //Detect scroll to bottom, and use IntersectionObserver
     const observer = useRef()
     const lastRepoRef = useCallback(node => {
         if (loading) return
         if (observer.current) observer.current.disconnect()
-        observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore) {
-                dispatch(goToNextPage);
-            }
-        })
+        observer.current = new IntersectionObserver(entries =>
+            {
+                if (entries[0].isIntersecting && hasMore) {
+                    // console.log(entries);
+                    dispatch(goToNextPage);
+                }
+            },
+            {
+                rootMargin: "50px"
+            })
         if (node) observer.current.observe(node)
     }, [loading, hasMore])
 
-    // const getRepoList = useCallback(() => {
-    //     userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() &&
-    //     dispatch(setUser(params.userName)) &&
-    //     dispatch({ type: RESET_REPOS_STATE }) &&
-    //     dispatch(setReposList(params.userName, pageNumber));
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [params.userName])
-
-    // useEffect(() => {
-    //     getRepoList()
-    // }, [getRepoList])
-
     useEffect(() => {
-        // window.addEventListener("scroll", handleScroll);
         return () => {
             dispatch({ type: RESET_REPOS_STATE });
         };
@@ -80,7 +57,7 @@ const RepoListPage = () => {
 
     //Get More Repo List
     useEffect(() => {
-        if (pageNumber !== 1 && hasMore === true) dispatch(setReposList(params.userName, pageNumber));
+        if (pageNumber !== 1 && hasMore) dispatch(setReposList(params.userName, pageNumber));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber]);
 
@@ -94,12 +71,8 @@ const RepoListPage = () => {
                                 <SpaceAnimation />
                             ) : (
                                 allRepos.map((repo, index) => {
-                                    if (allRepos.length === index + 1) {
-                                        return (<div ref={lastRepoRef} key={repo.id}><RepoList repo={repo} /></div>)
-                                    } else {
-                                        return (<div key={repo.id}><RepoList repo={repo}/></div>)
-                                    }
-
+                                    if (allRepos.length === index + 1) return (<div ref={lastRepoRef} key={repo.id}><RepoList repo={repo} /></div>)
+                                    else return (<div key={repo.id}><RepoList repo={repo}/></div>)
                                 })
                             )}
                             {loading && (<LoadingRepoListAnimation />)}

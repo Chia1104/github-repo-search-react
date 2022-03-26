@@ -40,12 +40,11 @@ export const goToNextPage = (dispatch) => {
     dispatch({ type: GO_TO_NEXT_PAGE, payload: 1 });
 };
 
-export const setRepoDetails = (userName, repoNmae) => async (dispatch) => {
+export const setRepoDetails = (userName, repoName) => async (dispatch) => {
     let repoDetails = [];
     dispatch({ type: BEGIN_REPO_DETAILS_REQUEST });
     try {
-        repoDetails = await getRepoByName(userName, repoNmae);
-
+        repoDetails = await getRepoByName(userName, repoName);
         if (repoDetails.status === 200) {
             dispatch({
                 type: SET_REPO_DETAILS,
@@ -54,7 +53,6 @@ export const setRepoDetails = (userName, repoNmae) => async (dispatch) => {
             dispatch({ type: SUCCESS_REPO_DETAILS_REQUEST });
         } else if (repoDetails.status === 404) dispatch({ type: FAIL_REPO_DETAILS_REQUEST, payload: "404error" });
         else dispatch({ type: FAIL_REPO_DETAILS_REQUEST, payload: "error" });
-
     } catch (error) {
         console.log(error);
         dispatch({ type: FAIL_REPO_DETAILS_REQUEST, payload: "error" });
