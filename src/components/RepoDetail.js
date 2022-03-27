@@ -3,8 +3,11 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import BookmarksOutlinedIcon from '@mui/icons-material/BookmarksOutlined';
 import {useISOtoDate} from "../hooks/useISOtoDate";
+import {useRef} from "react";
+import {HoverLabel} from "./HoverLabel";
 
 const RepoDetail = ({ details }) => {
+    const gitHubIconRef = useRef()
 
     return(
         <div className="bg-white rounded-lg p-3 shadow-lg w-[100%] flex-col">
@@ -19,9 +22,20 @@ const RepoDetail = ({ details }) => {
                     <h1 className="text-lg border rounded-full px-2 mr-3">
                         {details.visibility}
                     </h1>
-                    <a href={details.svn_url} target="_blank" rel="noopener noreferrer">
-                        <GitHubIcon className="hover:text-[#FF9000]"/>
-                    </a>
+                    <div className="relative w-[200px]">
+                        <a href={details.svn_url} target="_blank" rel="noopener noreferrer">
+                            <GitHubIcon
+                                className="hover:text-[#FF9000]"
+                                ref={gitHubIconRef}
+                            />
+                        </a>
+                        <HoverLabel
+                            refTarget={gitHubIconRef}
+                            text={"View on GitHub"}
+                            left={"2rem"}
+                            top={"1rem"}
+                        />
+                    </div>
                 </div>
             </div>
             <div className="w-[100%] mb-3">
@@ -51,6 +65,7 @@ const RepoDetail = ({ details }) => {
                 <p className="text-secondary text-sm w-[50%] text-right">
                     {useISOtoDate(details.created_at)}
                 </p>
+
             </div>
         </div>
     )

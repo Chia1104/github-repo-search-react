@@ -3,14 +3,17 @@ import { useSelector} from "react-redux";
 import Skeleton from "@mui/material/Skeleton";
 import {Link, useNavigate} from 'react-router-dom';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import {HoverLabel} from "./HoverLabel";
+import {useRef} from "react";
 
 const Header = () => {
     const userData = useSelector((state) => state.user.userData);
     const { loading } = useSelector((state) => state.user.requestUser);
     const navigate = useNavigate();
+    const goBackButtonRef = useRef()
 
     return (
-        <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-50">
+        <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-40">
             { loading ? (
                 <div className="flex container items-center">
                     <Avatar className="mr-2 ml-7"/>
@@ -19,10 +22,18 @@ const Header = () => {
             ) : (
                 userData.login ? (
                     <div className="flex container w-[100%]">
-                        <div className="flex items-center w-[87%]">
+                        <div className="flex items-center w-[87%] relative">
                             <button className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
-                                <ArrowBackIosNewIcon className="text-white" fontSize="medium" onClick={() => navigate(-1)} />
+                                <ArrowBackIosNewIcon
+                                    className="text-white"
+                                    fontSize="medium"
+                                    onClick={() => navigate(-1)}
+                                    ref={goBackButtonRef}/>
                             </button>
+                            <HoverLabel
+                                refTarget={goBackButtonRef}
+                                text={"Go Back"}
+                            />
                             <Avatar alt={userData.login} src={userData.avatar_url} className="mr-2"/>
                             <h1>
                                 {userData.login}
