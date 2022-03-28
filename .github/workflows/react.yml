@@ -22,7 +22,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: yarn
 #      - run: yarn test
-      - run: npx eslint src/**
+#      - run: npx eslint src/**
   cd:
     needs: ci
     runs-on: ubuntu-latest
