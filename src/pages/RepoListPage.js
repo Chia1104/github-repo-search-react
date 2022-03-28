@@ -39,6 +39,7 @@ const RepoListPage = () => {
                 rootMargin: "50px"
             })
         if (node) observer.current.observe(node)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, hasMore])
 
     useEffect(() => {

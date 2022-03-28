@@ -10,7 +10,7 @@ const Header = () => {
     const userData = useSelector((state) => state.user.userData);
     const { loading } = useSelector((state) => state.user.requestUser);
     const navigate = useNavigate();
-    const goBackButtonRef = useRef()
+    const userNameRef = useRef()
 
     return (
         <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-40">
@@ -22,22 +22,25 @@ const Header = () => {
             ) : (
                 userData.login ? (
                     <div className="flex container w-[100%]">
-                        <div className="flex items-center w-[87%] relative">
+                        <div className="flex items-center w-[87%]">
                             <button className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
                                 <ArrowBackIosNewIcon
                                     className="text-white"
                                     fontSize="medium"
-                                    onClick={() => navigate(-1)}
-                                    ref={goBackButtonRef}/>
+                                    onClick={() => navigate(-1)}/>
                             </button>
-                            <HoverLabel
-                                refTarget={goBackButtonRef}
-                                text={"Go Back"}
-                            />
                             <Avatar alt={userData.login} src={userData.avatar_url} className="mr-2"/>
-                            <h1>
-                                {userData.login}
-                            </h1>
+                            <div className="relative w-[200px]">
+                                <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+                                    <h1 ref={userNameRef} className="hover:text-[#FF9000] transition ease-in-out">
+                                        {userData.login}
+                                    </h1>
+                                </a>
+                                <HoverLabel
+                                    refTarget={userNameRef}
+                                    text={"View on GitHub"}
+                                />
+                            </div>
                         </div>
                         <div className="md:flex items-center w-[13%] sm:hidden justify-center">
                             <Link to="/home" className="mr-2 hover:text-[#FF9000] transition ease-in-out"> Home </Link>
