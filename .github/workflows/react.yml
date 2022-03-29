@@ -57,3 +57,4 @@ jobs:
             --image "asia.gcr.io/$PROJECT_ID/$SERVICE_NAME/$SERVICE_NAME:$GITHUB_SHA" \
             --platform "managed" \
             --allow-unauthenticated
+
