@@ -1,11 +1,14 @@
 name: CI/CD
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   RUN_REGION: asia-east1
-  SERVICE_NAME: github-repo-search
+  SERVICE_NAME: github-repo-search-react
 
 jobs:
   ci:
@@ -20,9 +23,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - run: yarn
-#      - run: yarn test
-#      - run: npx eslint src/**
+      - name: Install dependencies
+        run: yarn
+#      - name: Unit tests
+#        run: yarn test
+#      - name: ESLint
+#        run: yarn eslint src/*.js
   cd:
     needs: ci
     runs-on: ubuntu-latest
@@ -38,7 +44,7 @@ jobs:
         uses: google-github-actions/setup-gcloud@v0
       - name: Use gcloud CLI
         run: gcloud info
-      - name: Build
+      - name: Build Docker image
         run: |-
           gcloud builds submit \
             --quiet \
