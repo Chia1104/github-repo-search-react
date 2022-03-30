@@ -1,12 +1,12 @@
 import RepoDetail from "../components/RepoDetail";
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
-import {setUser} from "../redux/actions/UserAction";
-import {setRepoDetails} from "../redux/actions/ReposAction";
-import {useParams} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useCallback } from "react";
+import { setUser } from "../redux/actions/UserAction";
+import { setRepoDetails } from "../redux/actions/ReposAction";
+import { useParams } from "react-router-dom";
 import ErrorPage from "./exceptions/ErrorPage";
 import NotFoundPage from "./exceptions/NotFoundPage";
-import {RESET_REPO_DETAILS_STATE} from "../utils/constants";
+import { RESET_REPO_DETAILS_STATE } from "../utils/constants";
 import LoadingRepoDetailAnimation from "../components/animations/LoadingRepoDetailAnimation";
 
 const RepoDetailPage = () => {
@@ -18,32 +18,34 @@ const RepoDetailPage = () => {
     const params = useParams();
 
     useEffect(() => {
-        dispatch({type: RESET_REPO_DETAILS_STATE});
+        dispatch({ type: RESET_REPO_DETAILS_STATE });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
+    const getRepo = useCallback(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setRepoDetails(params.userName, params.repoName));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.userName, params.repoName]);
+    }, [params.userName, params.repoName])
 
-    return(
-        <>
-            {error === "error" || userError === "error"? <ErrorPage /> : (
-                error === "404error" || userError === "404error"? <NotFoundPage /> : (
-                    <main>
-                        <div className="container w-screen m-auto">
-                            <div className="mt-20">
-                                { loading ? <LoadingRepoDetailAnimation />
-                                    : <RepoDetail details={repoDetails} />
-                                }
-                            </div>
+    useEffect(() => {
+        getRepo();
+    }, [getRepo]);
+
+    return (
+        <main>
+            {error === "error" || userError === "error" ? <ErrorPage /> : (
+                error === "404error" || userError === "404error" ? <NotFoundPage /> : (
+                    <div className="container w-screen m-auto">
+                        <div className="mt-20">
+                            {loading ? <LoadingRepoDetailAnimation />
+                                : <RepoDetail details={repoDetails} />
+                            }
                         </div>
-                    </main>
+                    </div>
                 )
             )}
-        </>
+        </main>
     )
 }
 

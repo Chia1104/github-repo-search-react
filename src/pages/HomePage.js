@@ -1,7 +1,7 @@
 import SpaceAnimation from "../components/animations/SpaceAnimation";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import Alert from '@mui/material/Alert';
 import {RESET_USER_STATE} from "../utils/constants";
 import {Fade} from "@mui/material";
@@ -23,10 +23,11 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     //Set input value to local state
-    const handleSearch = (e) => {
+    const handleSearch = useCallback((e) => {
         const { value } = e.target;
         setState({ ...state, query: value })
-    };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [])
 
     //Reset all state
     useEffect(() => {

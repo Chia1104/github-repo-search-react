@@ -1,14 +1,14 @@
-import {useEffect, useLayoutEffect, useRef, useCallback } from 'react'
+import { useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {goToNextPage, setReposList} from "../redux/actions/ReposAction"
+import { goToNextPage, setReposList } from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
 import NotFoundPage from "./exceptions/NotFoundPage";
 import SpaceAnimation from "../components/animations/SpaceAnimation";
-import {RESET_REPOS_STATE} from "../utils/constants";
+import { RESET_REPOS_STATE } from "../utils/constants";
 import ErrorPage from "./exceptions/ErrorPage";
-import {setUser} from "../redux/actions/UserAction";
+import { setUser } from "../redux/actions/UserAction";
 
 const RepoListPage = () => {
     //Redux state
@@ -28,13 +28,9 @@ const RepoListPage = () => {
     const lastRepoRef = useCallback(node => {
         if (loading) return
         if (observer.current) observer.current.disconnect()
-        observer.current = new IntersectionObserver(entries =>
-            {
-                if (entries[0].isIntersecting && hasMore) {
-                    // console.log(entries);
-                    dispatch(goToNextPage);
-                }
-            },
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && hasMore) dispatch(goToNextPage);
+        },
             {
                 rootMargin: "50px"
             })
@@ -50,38 +46,42 @@ const RepoListPage = () => {
     }, []);
 
     //First set user data, and repo data from redux state
-    useLayoutEffect(() => {
+    const getRepo = useCallback(() => {
         userData?.login?.toLowerCase() !== params?.userName?.toLowerCase() && dispatch(setUser(params.userName));
         dispatch(setReposList(params.userName, pageNumber));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.userName]);
+    }, [params.userName])
+    useLayoutEffect(() => {
+        getRepo();
+    }, [getRepo]);
 
     //Get More Repo List
-    useEffect(() => {
+    const getMoreRepo = useCallback(() => {
         if (pageNumber !== 1 && hasMore) dispatch(setReposList(params.userName, pageNumber));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pageNumber]);
+    }, [pageNumber])
+    useEffect(() => {
+        getMoreRepo()
+    }, [getMoreRepo]);
 
     return (
-        <>
-            {error === "error" || userError === "error"? <ErrorPage /> : (
-                error === "404error" || userError === "404error"? <NotFoundPage /> : (
-                    <main>
-                        <div className="mt-20">
-                            {allRepos.length === 0 && loading === false ? (
-                                <SpaceAnimation />
-                            ) : (
-                                allRepos.map((repo, index) => {
-                                    if (allRepos.length === index + 1) return (<div ref={lastRepoRef} key={repo.id}><RepoList repo={repo} /></div>)
-                                    else return (<div key={repo.id}><RepoList repo={repo}/></div>)
-                                })
-                            )}
-                            {loading && (<LoadingRepoListAnimation />)}
-                        </div>
-                    </main>
+        <main>
+            {error === "error" || userError === "error" ? <ErrorPage /> : (
+                error === "404error" || userError === "404error" ? <NotFoundPage /> : (
+                    <div className="mt-20">
+                        {allRepos.length === 0 && loading === false ? (
+                            <SpaceAnimation />
+                        ) : (
+                            allRepos.map((repo, index) => {
+                                if (allRepos.length === index + 1) return <RepoList repo={repo} ref={lastRepoRef} key={repo.id}/>
+                                else return <RepoList repo={repo} key={repo.id}/>
+                            })
+                        )}
+                        {loading && <LoadingRepoListAnimation />}
+                    </div>
                 )
             )}
-        </>
+        </main>
     );
 }
 

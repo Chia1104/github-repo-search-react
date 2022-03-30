@@ -2,14 +2,15 @@ import { useISOtoDate } from "../hooks/useISOtoDate"
 import {useNavigate, useParams} from "react-router-dom";
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import { forwardRef } from "react";
 
-const RepoList = ({ repo }) => {
+const RepoList = forwardRef(({repo}, ref) => {
 
     const navigate = useNavigate();
     const params = useParams();
 
     return (
-        <div className="flex justify-center mb-4">
+        <div className="flex justify-center mb-4" ref={ref || null}>
             <div className="flex-col repo-box">
                 <div className="flex w-[100%]">
                     <h1 className="text-primary my-1 md:text-xl sm:text-lg w-[85%]">
@@ -33,11 +34,7 @@ const RepoList = ({ repo }) => {
                         </p>
                         <div className="flex w-[50%] items-center">
                             {
-                                repo.stargazers_count !== 0 ? (
-                                    <StarIcon className="text-yellow-400 text-sm"/>
-                                ) : (
-                                    <StarBorderIcon className="text-yellow-400 text-sm"/>
-                                )
+                                repo.stargazers_count !== 0 ? <StarIcon className="text-yellow-400 text-sm"/> : <StarBorderIcon className="text-yellow-400 text-sm"/>
                             }
                             <p className="text-secondary text-sm" >
                                 {repo.stargazers_count}
@@ -52,6 +49,6 @@ const RepoList = ({ repo }) => {
             </div>
         </div>
     );
-}
+})
 
 export default RepoList;
