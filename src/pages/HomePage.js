@@ -3,10 +3,9 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useState, useEffect, useCallback} from "react";
 import {RESET_USER_STATE} from "../utils/constants";
+import {AlertLabel} from "../components/AlertLabel";
 
 const SpaceAnimation = loadable(() => import('../components/animations/SpaceAnimation'))
-const Alert = loadable(() => import('@mui/material/Alert'))
-const Fade = loadable(() => import('@mui/material/Fade'))
 
 const HomePage = () => {
     //Local state
@@ -54,7 +53,10 @@ const HomePage = () => {
                     </button>
                 </div>
                 <SpaceAnimation />
-                <Fade in={warning}><Alert severity="warning" className="bottom-10 fixed transition-opacity md:w-[500px] mx-auto sm:w-[340px]">Search input can't be empty</Alert></Fade>
+                <AlertLabel
+                    showUp={warning}
+                    severity={"warning"}
+                    text={"Search input can't be empty"} />
             </div>
         </div>
     );

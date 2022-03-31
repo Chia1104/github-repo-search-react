@@ -14,7 +14,6 @@ export const HoverLabel = ({
             <div
                 className="bg-black/[0.65] px-2 py-1 rounded-full absolute z-50"
                 style={{
-                    display: hovered ? "block" : "none",
                     left: left || "2.5rem",
                     top: top || "1.25rem",
                 }}

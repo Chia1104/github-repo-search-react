@@ -17,11 +17,11 @@ const Header = () => {
                 <div className="flex items-center w-[87%]">
                     <button
                         name="back"
-                        className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
+                        className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out"
+                        onClick={() => navigate(-1)}>
                         <ArrowBackIosNewIcon
                             className="text-white"
-                            fontSize="medium"
-                            onClick={() => navigate(-1)} />
+                            fontSize="medium"/>
                     </button>
                     <Avatar alt={userData.login || "avatar"} src={userData.avatar_url || null} className="mr-2" />
                     {loading ? <div className="bg-gray-200 w-20 animate-pulse h-3 rounded-2xl" /> : (
@@ -42,9 +42,12 @@ const Header = () => {
                 </div>
                 <div className="md:flex items-center w-[13%] sm:hidden justify-center">
                     <Link to="/home" className="mr-2 hover:text-[#FF9000] transition ease-in-out"> Home </Link>
-                    <button className="hover:text-[#FF9000] transition ease-in-out">
+                    <a href="https://github.com/Chia1104/github-repo-search-react/issues"
+                       className="hover:text-[#FF9000] transition ease-in-out"
+                       rel="noopener noreferrer"
+                       target="_blank">
                         Feedback
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

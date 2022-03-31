@@ -7,6 +7,7 @@ import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
 import { RESET_REPOS_STATE } from "../utils/constants";
 import { setUser } from "../redux/actions/UserAction";
+import {RepoDetailModal} from "../components/RepoDetailModal";
 
 const SpaceAnimation = loadable(() => import('../components/animations/SpaceAnimation'))
 const NotFoundPage = loadable(() => import('./exceptions/NotFoundPage'))
@@ -41,6 +42,7 @@ const RepoListPage = () => {
     }, [loading, hasMore])
 
     useEffect(() => {
+        // console.log("reset state")
         return () => {
             dispatch({ type: RESET_REPOS_STATE });
         };
@@ -54,6 +56,7 @@ const RepoListPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.userName])
     useLayoutEffect(() => {
+        // console.log("first load")
         getRepo();
     }, [getRepo]);
 
@@ -63,6 +66,7 @@ const RepoListPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNumber])
     useEffect(() => {
+        // console.log("load more")
         getMoreRepo()
     }, [getMoreRepo]);
 

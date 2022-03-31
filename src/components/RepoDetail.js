@@ -19,7 +19,7 @@ const RepoDetail = ({ details }) => {
                     </h1>
                 </div>
                 <div className="flex sm:mb-3">
-                    <h1 className="text-lg border rounded-full px-2 mr-3">
+                    <h1 className="text-lg border rounded-full px-2 mr-3 leading-7 h-7">
                         {details.visibility}
                     </h1>
                     <div className="relative w-[200px]">
@@ -38,8 +38,8 @@ const RepoDetail = ({ details }) => {
                     </div>
                 </div>
             </div>
-            <div className="w-[100%] mb-3">
-                <p>
+            <div className="w-[100%] mb-3 min-h-[50px]">
+                <p className="text-secondary">
                     {details.description}
                 </p>
             </div>
@@ -61,7 +61,6 @@ const RepoDetail = ({ details }) => {
                 <p className="text-secondary text-sm w-[50%] text-right">
                     {useISOtoDate(details.created_at)}
                 </p>
-
             </div>
         </div>
     )

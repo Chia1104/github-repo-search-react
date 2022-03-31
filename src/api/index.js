@@ -4,7 +4,7 @@ const URL = URL_NOW;
 
 export const getAllRepos = async (user, page) => {
     try {
-        const res = await fetch(`${URL}/users/${user}/repos?page=${page}&per_page=10`, {
+        const res = await fetch(`${URL}/users/${user}/repos?page=${page}&per_page=10&sort=created`, {
             method: 'GET',
             headers: {
                 Accept: 'application/json',
