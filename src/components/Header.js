@@ -15,13 +15,15 @@ const Header = () => {
         <div className="w-screen flex h-[70px] items-center bg-white shadow-lg inset-x-0 top-0 fixed justify-center z-40">
             <div className="flex container w-[100%]">
                 <div className="flex items-center w-[87%]">
-                    <button className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
+                    <button
+                        name="back"
+                        className="flex items-center justify-center rounded-full bg-gray-400 mr-5 w-7 h-7 hover:bg-[#FF9000] transition ease-in-out">
                         <ArrowBackIosNewIcon
                             className="text-white"
                             fontSize="medium"
                             onClick={() => navigate(-1)} />
                     </button>
-                    <Avatar src={userData.avatar_url || null} className="mr-2" />
+                    <Avatar alt={userData.login || "avatar"} src={userData.avatar_url || null} className="mr-2" />
                     {loading ? <div className="bg-gray-200 w-20 animate-pulse h-3 rounded-2xl" /> : (
                         userData.login ? (
                             <div className="relative w-[200px]">

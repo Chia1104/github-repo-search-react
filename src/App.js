@@ -1,10 +1,11 @@
+import loadable from '@loadable/component'
 import {BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import RepoListPage from "./pages/RepoListPage";
-import NotFoundPage from "./pages/exceptions/NotFoundPage";
 import Header from "./components/Header";
-import RepoDetailPage from "./pages/RepoDetailPage";
 
+const NotFoundPage = loadable(() => import('./pages/exceptions/NotFoundPage'))
+const HomePage = loadable(() => import('./pages/HomePage'))
+const RepoListPage = loadable(() => import('./pages/RepoListPage'))
+const RepoDetailPage = loadable(() => import('./pages/RepoDetailPage'))
 
 function App() {
   return (

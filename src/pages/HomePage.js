@@ -1,10 +1,12 @@
-import SpaceAnimation from "../components/animations/SpaceAnimation";
+import loadable from '@loadable/component'
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {useState, useEffect, useCallback} from "react";
-import Alert from '@mui/material/Alert';
 import {RESET_USER_STATE} from "../utils/constants";
-import {Fade} from "@mui/material";
+
+const SpaceAnimation = loadable(() => import('../components/animations/SpaceAnimation'))
+const Alert = loadable(() => import('@mui/material/Alert'))
+const Fade = loadable(() => import('@mui/material/Fade'))
 
 const HomePage = () => {
     //Local state

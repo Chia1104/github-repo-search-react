@@ -4,10 +4,12 @@ import { useEffect, useCallback } from "react";
 import { setUser } from "../redux/actions/UserAction";
 import { setRepoDetails } from "../redux/actions/ReposAction";
 import { useParams } from "react-router-dom";
-import ErrorPage from "./exceptions/ErrorPage";
-import NotFoundPage from "./exceptions/NotFoundPage";
 import { RESET_REPO_DETAILS_STATE } from "../utils/constants";
 import LoadingRepoDetailAnimation from "../components/animations/LoadingRepoDetailAnimation";
+import loadable from "@loadable/component";
+
+const NotFoundPage = loadable(() => import('./exceptions/NotFoundPage'))
+const ErrorPage = loadable(() => import('./exceptions/ErrorPage'))
 
 const RepoDetailPage = () => {
     const repoDetails = useSelector((state) => state.repos.repoDetails);

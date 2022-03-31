@@ -50,11 +50,7 @@ const RepoDetail = ({ details }) => {
                     </p>
                     <div className="flex w-[50%] items-center">
                         {
-                            details.stargazers_count !== 0 ? (
-                                <StarIcon className="text-yellow-400 text-sm"/>
-                            ) : (
-                                <StarBorderIcon className="text-yellow-400 text-sm"/>
-                            )
+                            details.stargazers_count !== 0 ? <StarIcon className="text-yellow-400 text-sm"/> :  <StarBorderIcon className="text-yellow-400 text-sm"/>
                         }
                         <p className="text-secondary text-sm" >
                             {details.stargazers_count}

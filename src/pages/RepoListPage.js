@@ -1,14 +1,16 @@
+import loadable from '@loadable/component'
 import { useEffect, useLayoutEffect, useRef, useCallback } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { goToNextPage, setReposList } from "../redux/actions/ReposAction"
 import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
-import NotFoundPage from "./exceptions/NotFoundPage";
-import SpaceAnimation from "../components/animations/SpaceAnimation";
 import { RESET_REPOS_STATE } from "../utils/constants";
-import ErrorPage from "./exceptions/ErrorPage";
 import { setUser } from "../redux/actions/UserAction";
+
+const SpaceAnimation = loadable(() => import('../components/animations/SpaceAnimation'))
+const NotFoundPage = loadable(() => import('./exceptions/NotFoundPage'))
+const ErrorPage = loadable(() => import('./exceptions/ErrorPage'))
 
 const RepoListPage = () => {
     //Redux state
