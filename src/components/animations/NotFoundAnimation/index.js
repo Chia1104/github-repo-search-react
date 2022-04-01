@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie';
-import animationData from '../../lottie-json/91351-404-error-page-animation-with-sky.json';
+import animationData from './91351-404-error-page-animation-with-sky.json';
 
 const NotFoundAnimation = () => {
     const defaultOptions = {

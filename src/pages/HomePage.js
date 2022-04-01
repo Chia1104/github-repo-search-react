@@ -43,8 +43,15 @@ const HomePage = () => {
         <div className="flex justify-center items-center w-screen h-screen">
             <div className="flex flex-col items-center">
                 <div className="flex md:w-[500px] mx-auto sm:w-[340px] relative">
-                    <input type="text" value={query} onChange={handleSearch} className="rounded-full p-4 text-gray-800 border-gray-200 bg-white w-[100%] text-sm z-10 focus:outline-none" placeholder="user's name"/>
+                    <input
+                        id="searchInput"
+                        type="text"
+                        value={query}
+                        onChange={handleSearch}
+                        className="rounded-full p-4 text-gray-800 border-gray-200 bg-white w-[100%] text-sm z-10 focus:outline-none"
+                        placeholder="user's name"/>
                     <button
+                        id="searchBtn"
                         className="px-4 rounded-full bg-[#2B2E4A] text-white font-bold p-4 w-[100px] text-sm z-20 shadow-inner right-0 top-0 absolute hover:bg-[#FF9000] transition ease-in-out"
                         onClick={()=> {
                             query !== '' ? navigate(`/users/${query}/repos`) : setState({ ...state, warning: true });

@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie';
-import animationData from '../../lottie-json/58050-space-astronaut.json';
+import animationData from './58050-space-astronaut.json';
 
 const SpaceAnimation = () => {
     const defaultOptions = {

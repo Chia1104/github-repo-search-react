@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie';
-import animationData from '../../lottie-json/98642-error-404.json';
+import animationData from './98642-error-404.json';
 
 const ErrorAnimation = () => {
     const defaultOptions = {

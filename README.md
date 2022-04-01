@@ -18,10 +18,12 @@ You can go here, [deployment](https://nameless-coast-50474.herokuapp.com/).
 
 ## Features
 - [X] Infinite scroll
+- [ ] React Virtualized List
 - [X] Nginx proxy
-- [ ] Lazy Load
-- [ ] Performance
-- [ ] Unit Testing
+- [X] Lazy Load
+- [X] CI/CD
+- [X] E2E Testing(with [Cypress](https://www.cypress.io/))
+- [ ] Unit Testing(with [Jest](https://jestjs.io/))
 
 ## Project Structure
 ```
@@ -30,15 +32,20 @@ src
 │   └── index.js
 ├── hooks
 │   └── useISOtoDate.js
+│   └── useEventListener.js
+│   └── useHoverLabel.js
 ├── utils
 │   └── constants.js
 ├── components
 │   ├── animations
-│   │   └── ErrorAnimation.js
+│   │   │── ErrorAnimation
+│   │   │   └── index.js
+│   │   │── NotFoundAnimation
+│   │   │   └── index.js
+│   │   │── SpaceAnimation
+│   │   │   └── index.js
 │   │   └── LoadingRepoDetailAnimation.js
 │   │   └── LoadingRepoListAnimation.js
-│   │   └── NotFoundAnimation.js
-│   │   └── SpaceAnimation.js
 │   └── Header.js
 │   └── RepoDetail.js
 │   └── RepoList.js
@@ -78,6 +85,7 @@ $ yarn start
 Launches the test runner in the interactive watch mode.
 ```
 $ yarn test
+$ yarn cypress run
 ```
 Builds the app for production to the `build` folder.
 ```

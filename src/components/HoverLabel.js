@@ -18,7 +18,11 @@ export const HoverLabel = ({
                     top: top || "1.25rem",
                 }}
             >
-                <p className="text-white text-sm">{text || "Hover Label"}</p>
+                <p
+                    id="hoverLabel"
+                    className="text-white text-sm">
+                    {text || "Hover Label"}
+                </p>
             </div>
         </Fade>
     )

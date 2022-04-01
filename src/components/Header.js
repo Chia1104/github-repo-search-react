@@ -28,7 +28,7 @@ const Header = () => {
                         userData.login ? (
                             <div className="relative w-[200px]">
                                 <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
-                                    <h1 ref={userNameRef} className="hover:text-[#FF9000] transition ease-in-out">
+                                    <h1 id="mainTitle" ref={userNameRef} className="hover:text-[#FF9000] transition ease-in-out">
                                         {userData.login}
                                     </h1>
                                 </a>
@@ -37,11 +37,16 @@ const Header = () => {
                                     text={"View on GitHub"}
                                 />
                             </div>
-                        ) : <h1>GitHub Repo Search</h1>
+                        ) : <h1 id="mainTitle">GitHub Repo Search</h1>
                     )}
                 </div>
                 <div className="md:flex items-center w-[13%] sm:hidden justify-center">
-                    <Link to="/home" className="mr-2 hover:text-[#FF9000] transition ease-in-out"> Home </Link>
+                    <Link
+                        id="homeBtn"
+                        to="/home"
+                        className="mr-2 hover:text-[#FF9000] transition ease-in-out">
+                        Home
+                    </Link>
                     <a href="https://github.com/Chia1104/github-repo-search-react/issues"
                        className="hover:text-[#FF9000] transition ease-in-out"
                        rel="noopener noreferrer"
