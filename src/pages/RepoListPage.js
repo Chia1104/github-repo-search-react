@@ -7,7 +7,6 @@ import RepoList from "../components/RepoList";
 import LoadingRepoListAnimation from "../components/animations/LoadingRepoListAnimation";
 import { RESET_REPOS_STATE } from "../utils/constants";
 import { setUser } from "../redux/actions/UserAction";
-import {RepoDetailModal} from "../components/RepoDetailModal";
 
 const SpaceAnimation = loadable(() => import('../components/animations/SpaceAnimation'))
 const NotFoundPage = loadable(() => import('./exceptions/NotFoundPage'))

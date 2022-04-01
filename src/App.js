@@ -6,6 +6,7 @@ const NotFoundPage = loadable(() => import('./pages/exceptions/NotFoundPage'))
 const HomePage = loadable(() => import('./pages/HomePage'))
 const RepoListPage = loadable(() => import('./pages/RepoListPage'))
 const RepoDetailPage = loadable(() => import('./pages/RepoDetailPage'))
+// const RepoDetailModal = loadable(() => import('./components/RepoDetailModal'))
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
           <Routes>
               <Route path="/" element={<Navigate to='/home' />} />
               <Route path="/home" element={<HomePage />} />
-              <Route path="/users/:userName/repos" element={<RepoListPage />} />
+              <Route path="/users/:userName/repos" element={<RepoListPage />} >
+                  {/*<Route path=":repoName" element={<RepoDetailModal />} />*/}
+              </Route>
               <Route path="/users/:userName/repos/:repoName" element={<RepoDetailPage />} />
               <Route path="*" element={<NotFoundPage />} />
           </Routes>
