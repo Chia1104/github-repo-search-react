@@ -1,7 +1,7 @@
 describe('Test HomePage search function, and navigation', () => {
-    cy.visit('/')
 
     it('Make sure searching without query string, and alert will show up', () => {
+        cy.visit('/home')
         cy.get('#searchBtn').click()
         cy.get('#alertLabel').should('contain', 'Search input can\'t be empty').and('be.visible')
     })
