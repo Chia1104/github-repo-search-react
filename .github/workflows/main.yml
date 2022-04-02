@@ -51,7 +51,7 @@ jobs:
           path: build
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
+          start: yarn start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     name: E2E on Firefox
     container:
-      image: cypress/browsers:node12.16.1-chrome80-ff73
+      image: cypress/browsers:node16.13.2-chrome100-ff98
       options: --user 1001
     steps:
       - uses: actions/checkout@v3
@@ -72,7 +72,7 @@ jobs:
           path: build
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
+          start: yarn start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: firefox
@@ -90,7 +90,7 @@ jobs:
           path: build
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
+          start: yarn start
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: edge
