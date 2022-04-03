@@ -1,19 +1,15 @@
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player'
 import animationData from './91351-404-error-page-animation-with-sky.json';
 
 const NotFoundAnimation = () => {
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: animationData,
-        rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
-        }
-    };
     return (
-        <Lottie options={defaultOptions}
-                height={500}
-                width={700}/>
+        <Lottie
+            loop
+            animationData={animationData}
+            play
+            className="md:max-w-[500px] md:max-h-[700px] mx-auto"
+            style={{ width: '100%', height: '100%' }}
+        />
     );
 }
 
