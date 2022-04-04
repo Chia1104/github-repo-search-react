@@ -2,12 +2,21 @@ import { useISOtoDate } from "../hooks/useISOtoDate"
 import {useNavigate, useParams} from "react-router-dom";
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import { forwardRef } from "react";
+import {forwardRef, useCallback} from "react";
+import {setRepoDetails} from "../redux/actions/ReposAction";
+import {useDispatch} from "react-redux";
+import {OPEN_REPO_DETAIL_MODAL} from "../utils/constants";
 
 const RepoList = forwardRef(({repo}, ref) => {
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
+    const getRepo = useCallback(() => {
+        dispatch({ type: OPEN_REPO_DETAIL_MODAL });
+        dispatch(setRepoDetails(params.userName, repo.name));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params.userName, repo.name])
 
     return (
         <div className="flex justify-center mb-4" ref={ref || null}>
@@ -19,7 +28,10 @@ const RepoList = forwardRef(({repo}, ref) => {
                     <button
                         className="w-[15%] bg-[#2B2E4A] rounded-full drop-shadow-lg text-white hover:bg-[#FF9000] transition ease-in-out md:text-md sm:text-sm h-9"
                         onClick={()=> {
-                            navigate(`/users/${params.userName}/repos/${repo.name}`)
+                            getRepo()
+                            setTimeout(() => {
+                                navigate(`/users/${params.userName}/repos/${repo.name}`)
+                            }, 100)
                         }}>
                         More
                     </button>
