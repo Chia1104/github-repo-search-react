@@ -29,9 +29,7 @@ const RepoList = forwardRef(({repo}, ref) => {
                         className="w-[15%] bg-[#2B2E4A] rounded-full drop-shadow-lg text-white hover:bg-[#FF9000] transition ease-in-out md:text-md sm:text-sm h-9"
                         onClick={()=> {
                             getRepo()
-                            setTimeout(() => {
-                                navigate(`/users/${params.userName}/repos/${repo.name}`)
-                            }, 100)
+                            navigate(`/users/${params.userName}/repos/${repo.name}`)
                         }}>
                         More
                     </button>
