@@ -96,7 +96,7 @@ jobs:
 #          browser: edge
 
   cd-gcp:
-    needs: [ci-node, e2e-on-chrome, e2e-on-firefox, e2e-on-edge]
+    needs: [ci-node, e2e-on-chrome, e2e-on-firefox]
     runs-on: ubuntu-latest
     name: CD GCP
     steps:
